@@ -1,34 +1,151 @@
+/* ================================
+   HOME PAGE - PROJENIUS TECHNOLOGY
+================================ */
+
 .home-page {
   width: 100%;
-  overflow: hidden;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  overflow-x: clip;
+
   background: #ffffff;
+  color: #14213d;
+
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+  line-height: 1.6;
 }
 
-.home-reveal {
-  opacity: 0;
-  transform: translateY(34px);
+/* Consistent box sizing */
+
+.home-page *,
+.home-page *::before,
+.home-page *::after {
+  box-sizing: border-box;
+}
+
+/* Section layout */
+
+.home-page section {
+  width: 100%;
+  position: relative;
+}
+
+/* Images */
+
+.home-page img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Headings */
+
+.home-page h1,
+.home-page h2,
+.home-page h3,
+.home-page h4 {
+  margin-top: 0;
+  color: #14213d;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+/* Paragraphs */
+
+.home-page p {
+  margin-top: 0;
+  color: #5b6475;
+}
+
+/* Links */
+
+.home-page a {
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+.home-page a:hover {
+  color: #2563eb;
+}
+
+/* Buttons */
+
+.home-page button {
+  font-family: inherit;
+  cursor: pointer;
   transition:
-    opacity 700ms cubic-bezier(.22,1,.36,1),
-    transform 700ms cubic-bezier(.22,1,.36,1);
-  transition-delay: var(--reveal-delay, 0ms);
-  will-change: opacity, transform;
+    background-color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
-.home-reveal-left { transform: translateX(-34px); }
-.home-reveal-right { transform: translateX(34px); }
-.home-reveal-zoom { transform: scale(.92); }
-.home-reveal.is-visible {
-  opacity: 1;
-  transform: translate3d(0,0,0) scale(1);
+.home-page button:focus-visible,
+.home-page a:focus-visible {
+  outline: 3px solid #60a5fa;
+  outline-offset: 4px;
 }
 
-.home-page button,
-.home-page a { -webkit-tap-highlight-color: transparent; }
+/* Consistent section spacing */
+
+.home-page > section {
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+
+/* Responsive spacing */
+
+@media (max-width: 1024px) {
+  .home-page > section {
+    padding-top: 64px;
+    padding-bottom: 64px;
+  }
+}
+
+@media (max-width: 768px) {
+  .home-page > section {
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-page > section {
+    padding-top: 36px;
+    padding-bottom: 36px;
+  }
+
+  .home-page {
+    font-size: 15px;
+  }
+}
+
+/* Smooth scrolling */
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Prevent horizontal overflow */
+
+body {
+  margin: 0;
+  min-width: 320px;
+}
+
+/* Reduced motion accessibility */
 
 @media (prefers-reduced-motion: reduce) {
-  .home-reveal {
-    opacity: 1;
-    transform: none;
-    transition: none;
+  html {
+    scroll-behavior: auto;
+  }
+
+  .home-page *,
+  .home-page *::before,
+  .home-page *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
   }
 }

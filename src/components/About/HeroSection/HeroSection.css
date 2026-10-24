@@ -1,0 +1,512 @@
+/* ==========================================================================
+   HeroSection.css
+   All class names are prefixed with "iot-hero" (BEM) so they never
+   conflict with the rest of the project.
+   Sections:
+     1. Design tokens (variables)
+     2. Section wrapper & background
+     3. Layout (container + top grid)
+     4. Left content (pill, title, lead)
+     5. Buttons
+     6. Slider
+     7. Feature cards
+     8. Accessibility (focus + reduced motion)
+     9. Responsive – Laptop / Tablet / Mobile / Small mobile
+   ========================================================================== */
+ 
+ 
+/* ==========================================================================
+   1. DESIGN TOKENS
+   ========================================================================== */
+.iot-hero {
+  --iot-hero-bg: #060d1f;
+  --iot-hero-bg-soft: #0c1730;
+  --iot-hero-text: #ffffff;
+  --iot-hero-muted: #ffffff;
+  --iot-hero-cyan: #22b8f0;
+  --iot-hero-violet: #7c8cff;
+  --iot-hero-green: #27d79a;
+  --iot-hero-card: rgba(255, 255, 255, 0.08);
+  --iot-hero-card-text: #ffffff;
+  --iot-hero-card-muted: #ffffff;
+  --iot-hero-border: rgba(255, 255, 255, 0.14);
+  --iot-hero-radius-lg: 24px;
+  --iot-hero-radius-md: 18px;
+  --iot-hero-radius-sm: 10px;
+  --iot-hero-gap: clamp(1rem, 2vw, 1.5rem);
+  --iot-hero-font: "Plus Jakarta Sans", "Segoe UI", system-ui, -apple-system,
+    Roboto, Arial, sans-serif;
+  --iot-hero-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo,
+    Consolas, monospace;
+}
+ 
+ 
+/* ==========================================================================
+   2. SECTION WRAPPER & BACKGROUND
+   ========================================================================== */
+.iot-hero {
+  position: relative;
+  display: flex;
+  width: 100%;
+  min-height: 100vh;  /* one full window frame (fallback) */
+  min-height: 100svh; /* mobile-browser safe */
+  overflow: hidden;
+  color: var(--iot-hero-text);
+  font-family: var(--iot-hero-font);
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px) 0 0 / 44px 44px,
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px) 0 0 / 44px 44px,
+    radial-gradient(ellipse at 15% 0%, #0d3a5c 0%, transparent 55%),
+    linear-gradient(180deg, var(--iot-hero-bg) 0%, var(--iot-hero-bg-soft) 100%);
+}
+ 
+.iot-hero *,
+.iot-hero *::before,
+.iot-hero *::after {
+  box-sizing: border-box;
+}
+ 
+ 
+/* ==========================================================================
+   3. LAYOUT
+   ========================================================================== */
+.iot-hero__container {
+  width: 100%;
+  margin: 0; /* left aligned, no centering */
+  padding: clamp(1rem, 3vh, 2.5rem) clamp(1rem, 4vw, 2.75rem);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  gap: clamp(1rem, 3vh, 2rem);
+}
+ 
+.iot-hero__top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  flex: 1; /* takes all space left after the cards */
+  min-height: 0;
+  align-items: stretch;
+  gap: clamp(1.5rem, 4vw, 3rem);
+}
+ 
+ 
+/* ==========================================================================
+   4. LEFT CONTENT – pill, title, lead text
+   ========================================================================== */
+.iot-hero__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* text stays left aligned */
+  justify-content: center; /* balanced vertically beside the slider */
+  gap: clamp(0.9rem, 2.5vh, 1.5rem);
+  min-width: 0;
+}
+ 
+/* Small badge above the heading */
+.iot-hero__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.4rem 0.9rem;
+  border: 1px solid var(--iot-hero-border);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--iot-hero-text);
+  font-family: var(--iot-hero-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+ 
+.iot-hero__pill-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--iot-hero-green);
+  box-shadow: 0 0 8px var(--iot-hero-green);
+}
+ 
+/* Main heading */
+.iot-hero__title {
+  margin: 0;
+  font-size: clamp(1.9rem, min(5vw, 7.5vh), 3.6rem);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+}
+ 
+.iot-hero__title-accent {
+  display: block;
+  color: var(--iot-hero-text);
+}
+ 
+/* Paragraph under the heading */
+.iot-hero__lead {
+  margin: 0;
+  max-width: 34rem;
+  color: var(--iot-hero-muted);
+  font-size: clamp(0.9rem, min(1.6vw, 2.3vh), 1.1rem);
+  line-height: 1.7;
+}
+ 
+ 
+/* ==========================================================================
+   5. BUTTONS
+   ========================================================================== */
+.iot-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+}
+ 
+.iot-hero__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 44px; /* touch-friendly */
+  padding: 0.75rem 1.5rem;
+  border: 1px solid transparent;
+  border-radius: var(--iot-hero-radius-sm);
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+ 
+.iot-hero__btn:hover {
+  transform: translateY(-2px);
+}
+ 
+.iot-hero__btn--primary {
+  background: linear-gradient(90deg, #1596d1, #5b6cf0);
+  color: var(--iot-hero-text);
+  box-shadow: 0 0 24px rgba(34, 184, 240, 0.35);
+}
+ 
+.iot-hero__btn--secondary {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--iot-hero-border);
+  color: var(--iot-hero-text);
+}
+ 
+.iot-hero__btn--secondary:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+ 
+ 
+/* ==========================================================================
+   6. SLIDER
+   ========================================================================== */
+.iot-hero__slider {
+  padding: 12px;
+  border: 1px solid var(--iot-hero-border);
+  border-radius: var(--iot-hero-radius-lg);
+  background: rgba(255, 255, 255, 0.07);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+}
+ 
+.iot-hero__slider-frame {
+  position: relative;
+  flex: 1;
+  min-height: 220px;
+  overflow: hidden;
+  border-radius: var(--iot-hero-radius-md);
+  background: #111b33; /* shown while images load or if one fails */
+}
+ 
+/* Slide images – stacked, fade by opacity only (smooth, no reflow) */
+.iot-hero__slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  will-change: opacity;
+}
+ 
+.iot-hero__slide--active {
+  opacity: 1;
+}
+ 
+.iot-hero__slide--failed {
+  visibility: hidden;
+}
+ 
+/* Tag – top right */
+.iot-hero__slide-tag {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--iot-hero-radius-sm);
+  background: rgba(10, 20, 45, 0.85);
+  color: var(--iot-hero-text);
+  font-family: var(--iot-hero-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+ 
+/* Arrows */
+.iot-hero__arrow {
+  position: absolute;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  transform: translateY(-50%);
+  border: 1px solid var(--iot-hero-border);
+  border-radius: 50%;
+  background: rgba(10, 20, 45, 0.85);
+  color: var(--iot-hero-text);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+ 
+.iot-hero__arrow:hover {
+  background: rgba(34, 184, 240, 0.35);
+}
+ 
+.iot-hero__arrow--prev {
+  left: 12px;
+}
+ 
+.iot-hero__arrow--next {
+  right: 12px;
+}
+ 
+/* Dots */
+.iot-hero__dots {
+  position: absolute;
+  left: 18px;
+  bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+ 
+.iot-hero__dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+ 
+.iot-hero__dot--active {
+  width: 24px;
+  background: var(--iot-hero-cyan);
+}
+ 
+/* Floating chip – bottom right */
+.iot-hero__chip {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.6rem 1rem;
+  border-radius: var(--iot-hero-radius-sm);
+  background: rgba(10, 20, 45, 0.85);
+  color: var(--iot-hero-text);
+  font-size: 0.8rem;
+  font-weight: 600;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+ 
+ 
+/* ==========================================================================
+   7. FEATURE CARDS
+   ========================================================================== */
+.iot-hero__cards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--iot-hero-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+ 
+.iot-hero__card {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.3rem, 1vh, 0.6rem);
+  padding: clamp(0.8rem, 2vh, 1.25rem);
+  border: 1px solid var(--iot-hero-border);
+  border-radius: var(--iot-hero-radius-md);
+  background: var(--iot-hero-card);
+  color: var(--iot-hero-card-text);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25);
+}
+ 
+.iot-hero__card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.25rem;
+}
+ 
+.iot-hero__card-icon {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--iot-hero-radius-sm);
+  background: rgba(255, 255, 255, 0.14);
+  color: var(--iot-hero-text);
+}
+ 
+.iot-hero__card-badge {
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  background: rgba(34, 184, 240, 0.28);
+  color: var(--iot-hero-text);
+  font-family: var(--iot-hero-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+ 
+.iot-hero__card-title {
+  margin: 0;
+  font-size: 1.02rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+ 
+.iot-hero__card-text {
+  margin: 0;
+  color: var(--iot-hero-card-muted);
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+ 
+ 
+/* ---- White text lock (beats global h1 / p / a styles) ---- */
+.iot-hero .iot-hero__pill,
+.iot-hero .iot-hero__title,
+.iot-hero .iot-hero__title-accent,
+.iot-hero .iot-hero__lead,
+.iot-hero .iot-hero__btn,
+.iot-hero .iot-hero__slide-tag,
+.iot-hero .iot-hero__chip,
+.iot-hero .iot-hero__card-title,
+.iot-hero .iot-hero__card-text,
+.iot-hero .iot-hero__card-badge,
+.iot-hero .iot-hero__card-icon {
+  color: var(--iot-hero-text);
+}
+ 
+ 
+/* ==========================================================================
+   8. ACCESSIBILITY – keyboard focus + reduced motion
+   ========================================================================== */
+.iot-hero__btn:focus-visible,
+.iot-hero__arrow:focus-visible,
+.iot-hero__dot:focus-visible {
+  outline: 3px solid var(--iot-hero-cyan);
+  outline-offset: 3px;
+}
+ 
+@media (prefers-reduced-motion: reduce) {
+  .iot-hero__btn,
+  .iot-hero__slide,
+  .iot-hero__dot,
+  .iot-hero__arrow {
+    transition: none;
+  }
+ 
+  .iot-hero__btn:hover {
+    transform: none;
+  }
+}
+ 
+ 
+/* ==========================================================================
+   9. RESPONSIVE
+   ========================================================================== */
+ 
+/* ---- Laptop (≤ 1200px) ---- */
+@media (max-width: 1200px) {
+  .iot-hero__cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+ 
+/* ---- Tablet (≤ 900px) ---- */
+@media (max-width: 900px) {
+  .iot-hero {
+    min-height: 0;
+  }
+ 
+  .iot-hero__top {
+    grid-template-columns: minmax(0, 1fr);
+    flex: none;
+  }
+ 
+  .iot-hero__slider-frame {
+    flex: none;
+    aspect-ratio: 4 / 3;
+  }
+ 
+  .iot-hero__lead {
+    max-width: 100%;
+  }
+}
+ 
+/* ---- Mobile (≤ 600px) ---- */
+@media (max-width: 600px) {
+  .iot-hero__actions {
+    width: 100%;
+    flex-direction: column;
+  }
+ 
+  .iot-hero__btn {
+    width: 100%;
+  }
+ 
+  .iot-hero__cards {
+    grid-template-columns: minmax(0, 1fr);
+  }
+ 
+  .iot-hero__arrow {
+    width: 34px;
+    height: 34px;
+  }
+ 
+  .iot-hero__chip {
+    right: 10px;
+    bottom: 10px;
+    padding: 0.5rem 0.8rem;
+    font-size: 0.74rem;
+  }
+}
+ 
+/* ---- Small mobile (≤ 380px) ---- */
+@media (max-width: 380px) {
+  .iot-hero__pill {
+    font-size: 0.62rem;
+  }
+ 
+  .iot-hero__slide-tag {
+    font-size: 0.6rem;
+  }
+}
+ 

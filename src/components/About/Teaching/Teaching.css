@@ -1,6 +1,7 @@
 /* =========================================================
    TEACHING SECTION
    Responsive layout: 4 columns > 2 columns > 1 column
+   Background: light blue grid + #e48f7c coral glow
 ========================================================= */
 
 .teaching-section,
@@ -9,36 +10,33 @@
 }
 
 .teaching-section {
+  /* Background colours – change here only */
+  --teaching-bg-blue: #dcedff;
+  --teaching-bg-blue-soft: #e8f3ff;
+  --teaching-coral: #e48f7c;
+  --teaching-grid: rgba(110, 160, 220, 0.18);
+  --teaching-orange: #f26a0f;        /* bright orange font colour */
+  --teaching-ink: #0a2150;           /* dark navy blue for headings / titles */
+  --teaching-body: #1f3a6b;          /* dark navy blue for descriptions */
+
   position: relative;
   isolation: isolate;
   width: 100%;
   padding: clamp(42px, 5vw, 68px) 0;
   overflow: hidden;
-  background: linear-gradient(135deg, #f5fbff 0%, #ffffff 48%, #f8f5ff 100%);
+  background:
+    linear-gradient(var(--teaching-grid) 1px, transparent 1px) 0 0 / 48px 48px,
+    linear-gradient(90deg, var(--teaching-grid) 1px, transparent 1px) 0 0 / 48px 48px,
+    radial-gradient(ellipse 45% 55% at 100% 0%, rgba(228, 143, 124, 0.38), transparent 70%),
+    radial-gradient(ellipse 40% 50% at 0% 100%, rgba(228, 143, 124, 0.24), transparent 70%),
+    linear-gradient(135deg, var(--teaching-bg-blue-soft) 0%, var(--teaching-bg-blue) 50%, var(--teaching-bg-blue-soft) 100%);
 }
 
-.teaching-decoration {
-  position: absolute;
-  z-index: -1;
-  pointer-events: none;
-  border-radius: 50%;
-  filter: blur(2px);
-}
-
-.teaching-decoration-left {
-  top: -135px;
-  left: -80px;
-  width: 260px;
-  aspect-ratio: 1;
-  background: rgba(84, 166, 245, 0.16);
-}
-
+/* The two half circles are removed */
+.teaching-decoration,
+.teaching-decoration-left,
 .teaching-decoration-right {
-  top: -175px;
-  right: -95px;
-  width: 300px;
-  aspect-ratio: 1;
-  background: rgba(160, 112, 245, 0.12);
+  display: none;
 }
 
 .teaching-container {
@@ -62,7 +60,7 @@
   justify-content: center;
   gap: 16px;
   margin-bottom: 15px;
-  color: #1679d7;
+  color: var(--teaching-orange);
   font-size: clamp(12px, 1.15vw, 16px);
   font-weight: 900;
   letter-spacing: 0.16em;
@@ -75,12 +73,12 @@
   height: 2px;
   flex: 0 0 auto;
   border-radius: 10px;
-  background: #a9cdec;
+  background: var(--teaching-coral);
 }
 
 .teaching-heading h2 {
   margin: 0;
-  color: #09245c;
+  color: var(--teaching-ink);
   font-size: clamp(32px, 4vw, 57px);
   font-weight: 900;
   line-height: 1.08;
@@ -89,7 +87,7 @@
 }
 
 .teaching-heading h2 strong {
-  color: #1599df;
+  color: var(--teaching-orange);
   font-weight: 900;
 }
 
@@ -122,36 +120,26 @@
 
 /* Card backgrounds */
 
-.teaching-blue {
-  background: linear-gradient(145deg, #edf8ff, #f9fcff);
+/* Only two card colours: light blue and coral (#e48f7c), in a checkerboard.
+   The old per-topic colour classes are overridden here. */
+.teaching-section .teaching-card {
+  background: #ffffff;
+  border: 1px solid var(--teaching-orange); /* thin orange border */
+  box-shadow: 0 10px 26px rgba(40, 90, 150, 0.12);
 }
 
-.teaching-purple {
-  background: linear-gradient(145deg, #f9f0ff, #ffffff);
+.teaching-section .teaching-card:hover {
+  border-color: var(--teaching-orange);
+  box-shadow: 0 18px 36px rgba(242, 106, 15, 0.25);
 }
 
-.teaching-cyan {
-  background: linear-gradient(145deg, #e9faff, #f8fdff);
+/* Light blue image panel, coral divider, white text area */
+.teaching-section .teaching-image-wrap {
+  background: linear-gradient(160deg, #e9f4ff, #cfe5fb);
 }
 
-.teaching-yellow {
-  background: linear-gradient(145deg, #fff9e9, #fffdf7);
-}
-
-.teaching-orange {
-  background: linear-gradient(145deg, #fff3ec, #fffaf8);
-}
-
-.teaching-violet {
-  background: linear-gradient(145deg, #f7f0ff, #ffffff);
-}
-
-.teaching-pink {
-  background: linear-gradient(145deg, #eefaff, #f9fdff);
-}
-
-.teaching-green {
-  background: linear-gradient(145deg, #ecfff4, #f9fffb);
+.teaching-section .teaching-card-content {
+  border-top: 3px solid var(--teaching-coral);
 }
 
 /* Image */
@@ -228,8 +216,8 @@
   margin-top: 2px;
   border: 1px solid rgba(255, 255, 255, 0.95);
   border-radius: 50%;
-  color: #1475dc;
-  background: rgba(255, 255, 255, 0.92);
+  color: #ffffff;
+  background: var(--teaching-coral);
   box-shadow: 0 5px 14px rgba(45, 91, 135, 0.1);
   transition: transform 240ms ease, box-shadow 240ms ease;
 }
@@ -259,6 +247,45 @@
 .teaching-card:hover .teaching-arrow-icon {
   opacity: 1;
   transform: translateX(0);
+}
+
+/* =========================================================
+   TEXT COLOUR LOCK
+   Higher specificity + !important so global h2 / h3 / p styles
+   in the project cannot change these colours.
+========================================================= */
+
+.teaching-section .teaching-eyebrow,
+.teaching-section .teaching-eyebrow span {
+  color: var(--teaching-orange) !important;
+}
+
+.teaching-section .teaching-eyebrow .teaching-eyebrow-line {
+  background: var(--teaching-coral) !important;
+}
+
+.teaching-section .teaching-heading h2 {
+  color: var(--teaching-ink) !important;
+}
+
+.teaching-section .teaching-heading h2 strong {
+  color: var(--teaching-orange) !important;
+}
+
+.teaching-section .teaching-card h3 {
+  color: var(--teaching-ink) !important;
+}
+
+.teaching-section .teaching-card p {
+  color: var(--teaching-body) !important;
+}
+
+.teaching-section .teaching-card .teaching-arrow {
+  color: #ffffff !important;
+}
+
+.teaching-section .teaching-card:hover .teaching-arrow {
+  background: var(--teaching-orange) !important;
 }
 
 /* Medium desktop and tablet */

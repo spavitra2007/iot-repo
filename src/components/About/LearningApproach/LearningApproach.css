@@ -1,1392 +1,706 @@
-/* =========================================================
-   LEARNING APPROACH SECTION
-========================================================= */
+/* ==========================================================
+   LearningApproach.css
+   Every class starts with "lapr-" so it never conflicts with
+   other project code. Each section below is labelled with the
+   class names it styles.
+   ========================================================== */
 
-.learning-approach {
-  position: relative;
+
+/* ==========================================================
+   1. TONE VARIABLES  (.lapr-tone--learn / explore / build / create)
+   One accent colour per step. Reused by heading words AND cards,
+   so colours are never repeated anywhere else.
+   ========================================================== */
+.lapr-tone--learn {
+  --lapr-accent: #1d4e91;
+  --lapr-arrow: #1fa2c4;
+}
+
+.lapr-tone--explore {
+  --lapr-accent: #6a2c91;
+  --lapr-arrow: #7a3fc4;
+}
+
+.lapr-tone--build {
+  --lapr-accent: #1f8a5b;
+  --lapr-arrow: #2faa72;
+}
+
+.lapr-tone--create {
+  --lapr-accent: var(--lapr-peach);
+  --lapr-arrow: var(--lapr-peach);
+}
+
+
+/* ==========================================================
+   2. SECTION WRAPPER  (.lapr-section)
+   Fills the full window, never scrolls.
+   100vh is the fallback, 100dvh fixes mobile browser bars.
+   All theme colours are defined here as variables.
+   ========================================================== */
+.lapr-section {
+  --lapr-navy: #0f1b3d;
+  --lapr-text: #3a4256;
+  --lapr-bg-blue: #dcedfb;
+  --lapr-peach: #e48f7c;
+  --lapr-orange: #f26a21;
+  --lapr-peach-glow: rgba(228, 143, 124, 0.28);
+  --lapr-card-bg: rgba(255, 255, 255, 0.94);
+  --lapr-gap: clamp(0.75rem, 2vw, 2rem);
+
+  box-sizing: border-box;
   width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  padding: clamp(0.75rem, 3vh, 2rem) clamp(0.75rem, 3vw, 3rem);
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--lapr-text);
+  font-family: "Poppins", "Segoe UI", Roboto, Arial, sans-serif;
+  background-color: var(--lapr-bg-blue);
+  background-image:
+    radial-gradient(circle at 94% 6%, var(--lapr-peach-glow) 0%, transparent 36%),
+    radial-gradient(circle at 4% 96%, var(--lapr-peach-glow) 0%, transparent 34%),
+    linear-gradient(rgba(29, 78, 145, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(29, 78, 145, 0.06) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 32px 32px, 32px 32px;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
 
-  padding: 38px 0 42px;
-
-  background:
-    linear-gradient(
-      135deg,
-      #f5fbff 0%,
-      #ffffff 50%,
-      #faf7ff 100%
-    );
+.lapr-section *,
+.lapr-section *::before,
+.lapr-section *::after {
+  box-sizing: border-box;
 }
 
 
-/* =========================================================
-   BACKGROUND DECORATION
-========================================================= */
-
-.learning-blob {
-  position: absolute;
-
-  border-radius: 50%;
-
-  pointer-events: none;
-
-  z-index: 0;
-}
-
-.learning-blob-left {
-  width: 210px;
-  height: 210px;
-
-  top: -140px;
-  left: -95px;
-
-  background: rgba(62, 163, 239, 0.07);
-}
-
-.learning-blob-right {
-  width: 230px;
-  height: 230px;
-
-  top: -145px;
-  right: -95px;
-
-  background: rgba(139, 91, 239, 0.06);
-}
-
-
-/* =========================================================
-   CONTAINER
-========================================================= */
-
-.learning-container {
-  position: relative;
-
-  z-index: 2;
-
-  width: min(
-    1480px,
-    calc(100% - 64px)
-  );
-
-  margin: 0 auto;
-}
-
-
-/* =========================================================
-   HEADING
-========================================================= */
-
-.learning-heading {
+/* ==========================================================
+   3. CONTAINER  (.lapr-container)
+   Column layout: heading on top, cards fill the middle,
+   outcomes at the bottom. min-height: 0 lets children shrink
+   instead of overflowing.
+   ========================================================== */
+.lapr-container {
   width: 100%;
+  /* Width is also capped by window height, so the whole block
+     scales down together and never needs to scroll */
+  max-width: min(1400px, 175dvh);
+  flex: 1 1 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.5rem, 2vh, 1.5rem);
+}
 
-  margin: 0 auto 28px;
 
+/* ==========================================================
+   4. EYEBROW  (.lapr-eyebrow, .lapr-eyebrow__text)
+   Small uppercase title with a line on each side.
+   ========================================================== */
+.lapr-eyebrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.5rem, 1.5vw, 1rem);
+  width: 100%;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.lapr-eyebrow::before,
+.lapr-eyebrow::after {
+  content: "";
+  width: clamp(1.5rem, 6vw, 4rem);
+  height: 2px;
+  background-color: var(--lapr-peach);
+  border-radius: 2px;
+}
+
+.lapr-eyebrow__text {
+  font-size: clamp(0.65rem, 1.2vw, 0.95rem);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--lapr-navy);
   text-align: center;
 }
 
 
-/* =========================================================
-   EYEBROW
-========================================================= */
-
-.learning-eyebrow {
+/* ==========================================================
+   5. HEADING  (.lapr-heading, .lapr-heading__word)
+   Each word takes its colour from the tone class.
+   Fluid size using clamp() so it scales on every device.
+   ========================================================== */
+.lapr-heading {
+  margin: 0;
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  column-gap: 0.3em;
+  font-size: clamp(1.4rem, 4.4vw, 3.2rem);
+  font-weight: 800;
+  line-height: 1.1;
+  text-align: center;
+  flex-shrink: 0;
+}
 
+.lapr-heading__word {
+  color: var(--lapr-accent);
+}
+
+/* "Learn." and "Build." use dark navy */
+.lapr-heading__word.lapr-tone--learn,
+.lapr-heading__word.lapr-tone--build {
+  --lapr-accent: var(--lapr-navy);
+}
+
+/* "Explore." and "Create." use a bright orange text colour */
+.lapr-heading__word.lapr-tone--explore,
+.lapr-heading__word.lapr-tone--create {
+  --lapr-accent: var(--lapr-orange);
+}
+
+
+/* ==========================================================
+   6. SUB HEADING  (.lapr-subheading)
+   ========================================================== */
+.lapr-subheading {
+  margin: 0;
+  max-width: 60ch;
+  font-size: clamp(0.7rem, 1.3vw, 1rem);
+  line-height: 1.4;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+
+/* ==========================================================
+   7. STEPS GRID  (.lapr-steps)
+   Desktop: 4 columns in one row.
+   flex: 1 + min-height: 0 makes the grid use all remaining
+   height without ever pushing the page into a scroll.
+   ========================================================== */
+.lapr-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  flex: 0 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: auto;
+  gap: var(--lapr-gap);
+}
+
+
+/* ==========================================================
+   8. CARD  (.lapr-card)
+   White card with a soft shadow. Column layout:
+   text on top, image fills the rest.
+   ========================================================== */
+.lapr-card {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.4rem, 1.2vh, 0.9rem);
+  padding: clamp(0.5rem, 1.3vw, 1rem);
+  background-color: var(--lapr-card-bg);
+  border: 1px solid rgba(29, 78, 145, 0.1);
+  border-radius: clamp(0.75rem, 1.5vw, 1.25rem);
+  box-shadow: 0 8px 24px rgba(29, 78, 145, 0.12);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  will-change: transform;
+}
+
+.lapr-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 32px rgba(29, 78, 145, 0.2);
+}
+
+
+/* ==========================================================
+   9. CARD BODY  (.lapr-card__body, .lapr-card__badge,
+                  .lapr-card__text, .lapr-card__title,
+                  .lapr-card__desc)
+   Number badge on the left, title + description on the right.
+   ========================================================== */
+.lapr-card__body {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(0.4rem, 1vw, 0.75rem);
+  min-width: 0;
+  flex-shrink: 0;
+}
+
+.lapr-card__badge {
+  flex-shrink: 0;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-
-  gap: 15px;
-
-  margin-bottom: 9px;
-
-  color: #1686da;
-
-  font-size: 16px;
-
-  font-weight: 900;
-
-  letter-spacing: 0.18em;
-
+  width: clamp(1.8rem, 3vw, 2.7rem);
+  height: clamp(1.8rem, 3vw, 2.7rem);
+  border-radius: 0.6rem;
+  background-color: var(--lapr-accent);
+  color: #ffffff;
+  font-size: clamp(0.75rem, 1.3vw, 1.05rem);
+  font-weight: 700;
   line-height: 1;
 }
 
-.learning-line {
-  width: 40px;
-  height: 2px;
-
-  flex-shrink: 0;
-
-  border-radius: 10px;
-
-  background: #b8d5ec;
+.lapr-card__text {
+  min-width: 0;
 }
 
+.lapr-card__title {
+  margin: 0 0 0.15em;
+  font-size: clamp(0.95rem, 1.7vw, 1.4rem);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--lapr-navy);
+}
 
-/* =========================================================
-   MAIN HEADING
-========================================================= */
-
-.learning-heading h2 {
+.lapr-card__desc {
   margin: 0;
+  font-size: clamp(0.68rem, 1.05vw, 0.88rem);
+  line-height: 1.35;
+  overflow-wrap: anywhere;
 
-  color: #09245c;
-
-  font-size:
-    clamp(
-      38px,
-      4vw,
-      55px
-    );
-
-  font-weight: 900;
-
-  line-height: 1.04;
-
-  letter-spacing: -0.045em;
-}
-
-.learn-word {
-  color: #09245c;
-}
-
-.explore-word {
-  color: #1599df;
-}
-
-.build-word {
-  color: #713be7;
-}
-
-.create-word {
-  color: #f4b500;
+  /* Limit to 3 lines so text can never push the card taller */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 
-/* =========================================================
-   SUBTITLE
-========================================================= */
+/* ==========================================================
+   10. CARD IMAGE  (.lapr-card__media, .lapr-card__img,
+                    .lapr-card__img--hidden)
+   Image fills the remaining card height and is cropped
+   (object-fit) so it never stretches or overflows.
+   ========================================================== */
+.lapr-card__media {
+  position: relative;
+  flex: 0 0 auto;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  margin-top: auto;
+  overflow: hidden;
+  border-radius: clamp(0.5rem, 1vw, 0.9rem);
+  background-color: #e6edf7;
+}
 
-.learning-heading p {
-  max-width: 900px;
+/* Absolute fill = image always covers the whole box, any height */
+.lapr-card__img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
 
-  margin: 7px auto 0;
+/* Added by JS when an image fails to load */
+.lapr-card__img--hidden {
+  visibility: hidden;
+}
 
-  color: #687995;
 
-  font-size: 16px;
+/* ==========================================================
+   11. ARROW CONNECTOR  (.lapr-card__arrow)
+   Sits in the gap between two cards, coloured per step.
+   Only visible on wide screens (see responsive section).
+   ========================================================== */
+.lapr-card__arrow {
+  position: absolute;
+  top: 58%;
+  left: 100%;
+  width: var(--lapr-gap);
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--lapr-arrow);
+  font-size: clamp(0.9rem, 1.6vw, 1.5rem);
+  font-weight: 700;
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
 
-  font-weight: 500;
 
+/* ==========================================================
+   12. OUTCOMES WRAPPER  (.lapr-outcomes, .lapr-outcomes__stats,
+                          .lapr-outcomes__title)
+   Bottom row: key numbers on the left, call to action on
+   the right.
+   ========================================================== */
+.lapr-outcomes {
+  width: 100%;
+  flex-shrink: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+  align-items: center;
+  gap: var(--lapr-gap);
+  padding: clamp(0.5rem, 1.5vh, 1rem) clamp(0.75rem, 2vw, 1.5rem);
+  background-color: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(29, 78, 145, 0.1);
+  border-radius: clamp(0.75rem, 1.5vw, 1.25rem);
+}
+
+.lapr-outcomes__stats {
+  min-width: 0;
+}
+
+.lapr-outcomes__title {
+  margin: 0 0 0.4em;
+  font-size: clamp(0.85rem, 1.5vw, 1.25rem);
+  font-weight: 700;
+  color: var(--lapr-navy);
+}
+
+
+/* ==========================================================
+   13. STATS  (.lapr-stats, .lapr-stat, .lapr-stat__tag,
+               .lapr-stat__value, .lapr-stat__label,
+               .lapr-stat__note)
+   Three numbers side by side with thin divider lines.
+   ========================================================== */
+.lapr-stats {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.4rem, 1.5vw, 1.25rem);
+}
+
+.lapr-stat {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-left: clamp(0.4rem, 1.2vw, 1rem);
+  border-left: 3px solid var(--lapr-peach);
+}
+
+.lapr-stat__tag {
+  margin-bottom: 0.2em;
+  padding: 0.1em 0.6em;
+  border-radius: 999px;
+  background-color: rgba(228, 143, 124, 0.22);
+  color: var(--lapr-navy);
+  font-size: clamp(0.55rem, 0.9vw, 0.75rem);
+  font-weight: 600;
   line-height: 1.4;
 }
 
-
-/* =========================================================
-   CARDS GRID
-========================================================= */
-
-.learning-steps {
-  display: grid;
-
-  grid-template-columns:
-    repeat(4, minmax(0, 1fr));
-
-  gap: 48px;
-
-  align-items: stretch;
-}
-
-
-/* =========================================================
-   CARD WRAPPER
-========================================================= */
-
-.learning-step-wrapper {
-  position: relative;
-
-  min-width: 0;
-
-  height: 205px;
-}
-
-
-/* =========================================================
-   CARD
-========================================================= */
-
-.learning-card {
-  position: relative;
-
-  width: 100%;
-
-  /*
-    FORCE SAME HEIGHT
-  */
-  height: 205px !important;
-
-  min-height: 0 !important;
-
-  max-height: 205px;
-
-  display: flex;
-
-  flex-direction: column;
-
-  box-sizing: border-box;
-
-  overflow: hidden;
-
-  padding: 8px;
-
-  border: 1px solid rgba(
-    201,
-    222,
-    241,
-    0.8
-  );
-
-  border-radius: 20px;
-
-  box-shadow:
-    0 7px 20px
-    rgba(
-      38,
-      83,
-      132,
-      0.07
-    );
-
-  transition:
-    transform 0.28s ease,
-    box-shadow 0.28s ease;
-}
-
-.learning-card:hover {
-  transform: translateY(-4px);
-
-  box-shadow:
-    0 13px 28px
-    rgba(
-      38,
-      83,
-      132,
-      0.12
-    );
-}
-
-
-/* =========================================================
-   CARD BACKGROUNDS
-========================================================= */
-
-.learning-blue {
-  background:
-    linear-gradient(
-      145deg,
-      #eaf7ff 0%,
-      #f8fcff 100%
-    );
-}
-
-.learning-purple {
-  background:
-    linear-gradient(
-      145deg,
-      #f8edff 0%,
-      #ffffff 100%
-    );
-}
-
-.learning-cyan {
-  background:
-    linear-gradient(
-      145deg,
-      #e9ffff 0%,
-      #f7ffff 100%
-    );
-}
-
-.learning-yellow {
-  background:
-    linear-gradient(
-      145deg,
-      #fff8e5 0%,
-      #fffdf7 100%
-    );
-}
-
-
-/* =========================================================
-   CARD TOP
-========================================================= */
-
-.learning-card-top {
-  position: relative;
-
-  width: 100%;
-
-  height: 62px;
-
-  min-height: 62px;
-
-  flex-shrink: 0;
-
-  box-sizing: border-box;
-
-  padding-left: 62px;
-
-  padding-right: 48px;
-}
-
-
-/* =========================================================
-   NUMBER
-========================================================= */
-
-.learning-number {
-  position: absolute;
-
-  top: 0;
-  left: 0;
-
-  width: 54px;
-  height: 54px;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 50%;
-
-  color: #ffffff;
-
-  font-size: 21px;
-
-  font-weight: 900;
-
-  line-height: 1;
-
-  z-index: 3;
-
-  box-shadow:
-    0 6px 14px
-    rgba(
-      35,
-      100,
-      180,
-      0.14
-    );
-}
-
-
-/* =========================================================
-   NUMBER COLORS
-========================================================= */
-
-.learning-blue .learning-number {
-  background:
-    linear-gradient(
-      145deg,
-      #18a9ef,
-      #1482dc
-    );
-}
-
-.learning-purple .learning-number {
-  background:
-    linear-gradient(
-      145deg,
-      #9338f4,
-      #7128df
-    );
-}
-
-.learning-cyan .learning-number {
-  background:
-    linear-gradient(
-      145deg,
-      #18d9cf,
-      #08bbb6
-    );
-}
-
-.learning-yellow .learning-number {
-  background:
-    linear-gradient(
-      145deg,
-      #ffc51b,
-      #f0a900
-    );
-}
-
-
-/* =========================================================
-   CARD CONTENT
-========================================================= */
-
-.learning-card-heading {
-  width: 100%;
-
-  min-width: 0;
-
-  padding-top: 2px;
-}
-
-.learning-card-heading h3 {
-  margin: 0 0 3px;
-
-  color: #09245c;
-
-  font-size: 20px;
-
-  font-weight: 900;
-
+.lapr-stat__value {
+  font-size: clamp(1.2rem, 2.8vw, 2.2rem);
+  font-weight: 800;
   line-height: 1.05;
-
-  letter-spacing: -0.025em;
-
-  white-space: nowrap;
+  color: var(--lapr-navy);
 }
 
-.learning-card-heading p {
-  width: 100%;
+.lapr-stat__label {
+  font-size: clamp(0.7rem, 1.1vw, 0.95rem);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--lapr-navy);
+}
 
-  max-width: 185px;
+.lapr-stat__note {
+  font-size: clamp(0.6rem, 0.9vw, 0.78rem);
+  line-height: 1.3;
+}
 
+
+/* ==========================================================
+   14. CALL TO ACTION  (.lapr-cta, .lapr-cta__title,
+                        .lapr-cta__button, .lapr-cta__icon,
+                        .lapr-cta__link)
+   Heading, peach button and small video link.
+   ========================================================== */
+.lapr-cta {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(0.3rem, 1vh, 0.6rem);
+  text-align: center;
+}
+
+.lapr-cta__title {
   margin: 0;
-
-  color: #637592;
-
-  font-size: 11px;
-
-  font-weight: 500;
-
-  line-height: 1.22;
+  font-size: clamp(0.95rem, 1.9vw, 1.6rem);
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--lapr-navy);
 }
 
-
-/* =========================================================
-   ICON
-========================================================= */
-
-.learning-icon {
-  position: absolute;
-
-  top: 0;
-  right: 0;
-
-  width: 45px;
-  height: 45px;
-
-  display: flex;
-
+.lapr-cta__button {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-
-  border-radius: 50%;
-
-  background: rgba(
-    255,
-    255,
-    255,
-    0.92
-  );
-
-  box-shadow:
-    0 5px 12px
-    rgba(
-      60,
-      100,
-      140,
-      0.07
-    );
+  gap: 0.5em;
+  max-width: 100%;
+  padding: 0.6em 1.4em;
+  border-radius: 0.6rem;
+  background-color: var(--lapr-peach);
+  color: var(--lapr-navy);
+  font-size: clamp(0.75rem, 1.2vw, 1rem);
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 6px 16px rgba(228, 143, 124, 0.45);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.learning-blue .learning-icon {
-  color: #1599df;
+.lapr-cta__button:hover,
+.lapr-cta__button:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(228, 143, 124, 0.6);
 }
 
-.learning-purple .learning-icon {
-  color: #773be9;
+.lapr-cta__button:focus-visible,
+.lapr-cta__link:focus-visible {
+  outline: 3px solid var(--lapr-navy);
+  outline-offset: 3px;
 }
 
-.learning-cyan .learning-icon {
-  color: #10c7c2;
+.lapr-cta__icon {
+  transition: transform 0.2s ease;
 }
 
-.learning-yellow .learning-icon {
-  color: #f2b300;
+.lapr-cta__button:hover .lapr-cta__icon {
+  transform: translateX(4px);
 }
 
-
-/* =========================================================
-   IMAGE
-========================================================= */
-
-.learning-image-wrapper {
-  position: relative;
-
-  width: 100%;
-
-  /*
-    IMAGE HEIGHT
-  */
-  height: 125px;
-
-  min-height: 125px;
-
-  max-height: 125px;
-
-  flex-shrink: 0;
-
-  /*
-    ONLY SMALL GAP
-  */
-  margin: 3px 0 0;
-
-  padding: 0;
-
-  overflow: hidden;
-
-  box-sizing: border-box;
-
-  border-radius: 15px;
-
-  background: transparent;
-}
-
-.learning-image {
-  display: block;
-
-  width: 100%;
-
-  height: 125px;
-
-  object-fit: cover;
-
-  object-position: center;
-
-  border-radius: 15px;
-
-  transition:
-    transform 0.35s ease;
-}
-
-.learning-card:hover .learning-image {
-  transform: scale(1.025);
+.lapr-cta__link {
+  font-size: clamp(0.65rem, 1vw, 0.85rem);
+  color: var(--lapr-navy);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 
-/* =========================================================
-   CONNECTING ARROWS
-========================================================= */
-
-.learning-connector {
-  position: absolute;
-
-  top: 50%;
-  right: -42px;
-
-  width: 34px;
-  height: 34px;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  transform: translateY(-50%);
-
-  z-index: 10;
-
-  pointer-events: none;
-}
-
-.connector-1 {
-  color: #1599df;
-}
-
-.connector-2 {
-  color: #713be7;
-}
-
-.connector-3 {
-  color: #f2b500;
-}
-
-
-/* =========================================================
-   LAPTOP
-========================================================= */
-
-@media (max-width: 1250px) {
-
-  .learning-container {
-    width:
-      min(
-        1120px,
-        calc(100% - 44px)
-      );
-  }
-
-  .learning-steps {
-    gap: 38px;
-  }
-
-  .learning-step-wrapper {
-    height: 202px;
-  }
-
-  .learning-card {
-    height: 202px !important;
-
-    max-height: 202px;
-
-    padding: 8px;
-  }
-
-  .learning-card-top {
-    height: 60px;
-
-    min-height: 60px;
-
-    padding-left: 60px;
-
-    padding-right: 46px;
-  }
-
-  .learning-number {
-    width: 51px;
-    height: 51px;
-
-    font-size: 20px;
-  }
-
-  .learning-card-heading h3 {
-    font-size: 19px;
-  }
-
-  .learning-card-heading p {
-    max-width: 165px;
-
-    font-size: 10.5px;
-  }
-
-  .learning-icon {
-    width: 42px;
-    height: 42px;
-  }
-
-  .learning-image-wrapper {
-    height: 124px;
-
-    min-height: 124px;
-
-    max-height: 124px;
-
-    margin-top: 3px;
-  }
-
-  .learning-image {
-    height: 124px;
-  }
-
-  .learning-connector {
-    right: -32px;
+/* ==========================================================
+   15. RESPONSIVE: LAPTOP  (max-width 1200px)
+   Slightly tighter spacing.
+   ========================================================== */
+@media (max-width: 1200px) {
+  .lapr-section {
+    --lapr-gap: clamp(0.6rem, 1.6vw, 1.25rem);
   }
 }
 
 
-/* =========================================================
-   TABLET
-========================================================= */
-
-@media (max-width: 950px) {
-
-  .learning-approach {
-    padding:
-      34px
-      0
-      38px;
+/* ==========================================================
+   16. RESPONSIVE: TABLET  (max-width 900px)
+   Cards become a 2 x 2 grid, arrows hidden, outcomes stack
+   into one column.
+   ========================================================== */
+@media (max-width: 900px) {
+  .lapr-steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .learning-container {
-    width:
-      min(
-        760px,
-        calc(100% - 30px)
-      );
-  }
-
-  .learning-heading {
-    margin-bottom: 25px;
-  }
-
-  .learning-eyebrow {
-    font-size: 14px;
-
-    gap: 10px;
-  }
-
-  .learning-line {
-    width: 27px;
-  }
-
-  .learning-heading h2 {
-    font-size:
-      clamp(
-        32px,
-        5.5vw,
-        44px
-      );
-  }
-
-  .learning-heading p {
-    font-size: 14px;
-  }
-
-  .learning-steps {
-    grid-template-columns:
-      repeat(
-        2,
-        minmax(0, 1fr)
-      );
-
-    gap: 16px;
-  }
-
-  .learning-step-wrapper {
-    height: 205px;
-  }
-
-  .learning-card {
-    height: 205px !important;
-
-    max-height: 205px;
-
-    border-radius: 19px;
-  }
-
-  .learning-card-top {
-    height: 61px;
-
-    min-height: 61px;
-
-    padding-left: 60px;
-
-    padding-right: 46px;
-  }
-
-  .learning-number {
-    width: 51px;
-    height: 51px;
-
-    font-size: 20px;
-  }
-
-  .learning-card-heading h3 {
-    font-size: 19px;
-  }
-
-  .learning-card-heading p {
-    max-width: 175px;
-
-    font-size: 11px;
-  }
-
-  .learning-icon {
-    width: 42px;
-    height: 42px;
-  }
-
-  .learning-image-wrapper {
-    height: 125px;
-
-    min-height: 125px;
-
-    max-height: 125px;
-
-    margin-top: 3px;
-  }
-
-  .learning-image {
-    height: 125px;
-  }
-
-  .learning-connector {
+  .lapr-card__arrow {
     display: none;
   }
+
+  .lapr-outcomes {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lapr-cta {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    column-gap: 1rem;
+  }
 }
 
 
-/* =========================================================
-   MOBILE
-========================================================= */
-
+/* ==========================================================
+   17. RESPONSIVE: MOBILE  (max-width 600px)
+   1 column, 4 rows. Each card becomes a horizontal row:
+   text on the left, image on the right, so everything fits
+   on screen without scrolling.
+   ========================================================== */
 @media (max-width: 600px) {
-
-  .learning-approach {
-    padding:
-      30px
-      0
-      34px;
+  .lapr-subheading {
+    display: none;
   }
 
-  .learning-container {
-    width:
-      calc(100% - 24px);
+  .lapr-steps {
+    flex: 1 1 0;
+    min-height: 0;
+    grid-template-columns: minmax(0, 1fr);
+    grid-auto-rows: minmax(0, 1fr);
+    --lapr-gap: 0.5rem;
   }
 
-  .learning-heading {
-    margin-bottom: 22px;
+  .lapr-card {
+    flex-direction: row;
+    align-items: stretch;
+    gap: 0.5rem;
+    padding: 0.5rem;
   }
 
-  .learning-eyebrow {
-    gap: 7px;
-
-    margin-bottom: 9px;
-
-    font-size: 12px;
-
-    letter-spacing: 0.13em;
+  .lapr-card__body {
+    flex: 1 1 55%;
+    min-width: 0;
   }
 
-  .learning-line {
-    width: 23px;
+  .lapr-card__media {
+    flex: 0 0 40%;
+    width: auto;
+    max-width: 40%;
+    aspect-ratio: auto;
+    margin-top: 0;
   }
 
-  .learning-heading h2 {
-    font-size:
-      clamp(
-        28px,
-        8vw,
-        36px
-      );
-
-    line-height: 1.08;
+  .lapr-card__desc {
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
   }
 
-  .learning-heading p {
-    max-width: 340px;
-
-    margin-top: 7px;
-
-    font-size: 13px;
-
-    line-height: 1.38;
+  .lapr-outcomes {
+    gap: 0.5rem;
+    padding: 0.5rem;
   }
 
-  .learning-steps {
-    grid-template-columns: 1fr;
-
-    gap: 13px;
+  .lapr-stat__note {
+    display: none;
   }
 
-  .learning-step-wrapper {
-    height: 205px;
+  .lapr-cta {
+    gap: 0.4rem;
+  }
+}
+
+
+/* ==========================================================
+   18. RESPONSIVE: SHORT WINDOWS  (max-height 700px)
+   Landscape phones / short laptops: remove the least
+   important text so everything still fits.
+   ========================================================== */
+@media (max-height: 700px) {
+  .lapr-subheading,
+  .lapr-outcomes__title,
+  .lapr-cta__link {
+    display: none;
   }
 
-  .learning-card {
-    height: 205px !important;
-
-    max-height: 205px;
-
-    padding: 8px;
-
-    border-radius: 18px;
+  .lapr-card__desc {
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
   }
+}
 
-  .learning-card-top {
-    height: 61px;
 
-    min-height: 61px;
-
-    padding-left: 60px;
-
-    padding-right: 46px;
-  }
-
-  .learning-number {
-    width: 51px;
-    height: 51px;
-
-    font-size: 19px;
-  }
-
-  .learning-card-heading h3 {
-    font-size: 19px;
-  }
-
-  .learning-card-heading p {
-    max-width: 215px;
-
-    font-size: 11px;
-  }
-
-  .learning-icon {
-    width: 42px;
-    height: 42px;
-  }
-
-  .learning-image-wrapper {
-    height: 125px;
-
-    min-height: 125px;
-
-    max-height: 125px;
-
-    margin-top: 3px;
-
-    border-radius: 14px;
-  }
-
-  .learning-image {
-    height: 125px;
-
-    border-radius: 14px;
-  }
-
-  .learning-connector {
+/* ==========================================================
+   19. RESPONSIVE: VERY SHORT WINDOWS  (max-height 520px)
+   Keep only the heading and the four cards.
+   ========================================================== */
+@media (max-height: 520px) {
+  .lapr-outcomes {
     display: none;
   }
 }
 
 
-/* =========================================================
-   SMALL MOBILE
-========================================================= */
-
-@media (max-width: 400px) {
-
-  .learning-approach {
-    padding:
-      26px
-      0
-      30px;
+/* ==========================================================
+   20. RESPONSIVE: VERY SMALL SCREENS  (max-width 360px)
+   ========================================================== */
+@media (max-width: 360px) {
+  .lapr-card__desc {
+    font-size: 0.65rem;
   }
 
-  .learning-container {
-    width:
-      calc(100% - 18px);
-  }
-
-  .learning-heading {
-    margin-bottom: 19px;
-  }
-
-  .learning-eyebrow {
-    font-size: 11px;
-
-    gap: 6px;
-  }
-
-  .learning-line {
-    width: 19px;
-  }
-
-  .learning-heading h2 {
-    font-size: 27px;
-  }
-
-  .learning-heading p {
-    font-size: 12px;
-  }
-
-  .learning-steps {
-    gap: 12px;
-  }
-
-  .learning-step-wrapper {
-    height: 198px;
-  }
-
-  .learning-card {
-    height: 198px !important;
-
-    max-height: 198px;
-
-    padding: 7px;
-
-    border-radius: 17px;
-  }
-
-  .learning-card-top {
-    height: 57px;
-
-    min-height: 57px;
-
-    padding-left: 54px;
-
-    padding-right: 41px;
-  }
-
-  .learning-number {
-    width: 48px;
-    height: 48px;
-
-    font-size: 18px;
-  }
-
-  .learning-card-heading h3 {
-    font-size: 18px;
-  }
-
-  .learning-card-heading p {
-    max-width: 190px;
-
-    font-size: 10px;
-
-    line-height: 1.2;
-  }
-
-  .learning-icon {
-    width: 38px;
-    height: 38px;
-  }
-
-  .learning-image-wrapper {
-    height: 125px;
-
-    min-height: 125px;
-
-    max-height: 125px;
-
-    margin-top: 3px;
-
-    border-radius: 13px;
-  }
-
-  .learning-image {
-    height: 125px;
-
-    border-radius: 13px;
+  .lapr-stat__tag {
+    display: none;
   }
 }
 
 
-/* =========================================================
-   VERY SMALL MOBILE
-========================================================= */
-
-@media (max-width: 340px) {
-
-  .learning-container {
-    width:
-      calc(100% - 14px);
-  }
-
-  .learning-step-wrapper {
-    height: 190px;
-  }
-
-  .learning-card {
-    height: 190px !important;
-
-    max-height: 190px;
-
-    padding: 7px;
-  }
-
-  .learning-card-top {
-    height: 54px;
-
-    min-height: 54px;
-
-    padding-left: 51px;
-
-    padding-right: 39px;
-  }
-
-  .learning-number {
-    width: 45px;
-    height: 45px;
-
-    font-size: 17px;
-  }
-
-  .learning-card-heading h3 {
-    font-size: 17px;
-  }
-
-  .learning-card-heading p {
-    font-size: 9.5px;
-
-    line-height: 1.18;
-  }
-
-  .learning-icon {
-    width: 36px;
-    height: 36px;
-  }
-
-  .learning-image-wrapper {
-    height: 120px;
-
-    min-height: 120px;
-
-    max-height: 120px;
-
-    margin-top: 3px;
-
-    border-radius: 12px;
-  }
-
-  .learning-image {
-    height: 120px;
-
-    border-radius: 12px;
+/* ==========================================================
+   21. RESPONSIVE: LARGE SCREENS  (min-width 1600px)
+   Keep content centred and readable on big monitors.
+   ========================================================== */
+@media (min-width: 1600px) {
+  .lapr-container {
+    max-width: min(1600px, 175dvh);
   }
 }
 
 
-/* =========================================================
-   REDUCED MOTION
-========================================================= */
-
+/* ==========================================================
+   22. SAFETY: REDUCED MOTION  (.lapr-card, .lapr-cta__button,
+                                .lapr-cta__icon)
+   Respects users who turn off animations in their OS.
+   ========================================================== */
 @media (prefers-reduced-motion: reduce) {
-
-  .learning-card,
-  .learning-image {
+  .lapr-card,
+  .lapr-cta__button,
+  .lapr-cta__icon {
     transition: none;
+    will-change: auto;
+  }
+
+  .lapr-card:hover,
+  .lapr-cta__button:hover,
+  .lapr-cta__button:focus-visible,
+  .lapr-cta__button:hover .lapr-cta__icon {
+    transform: none;
   }
 }
 
-/* =========================================
-   CARD BORDER AND HOVER EFFECT
-========================================= */
 
-.learning-card {
-  border: 1px solid #c8dff4;
-  transition:
-    transform 0.3s ease,
-    border-color 0.3s ease,
-    box-shadow 0.3s ease,
-    filter 0.3s ease;
-}
-
-.learning-card:hover {
-  transform: translateY(-6px);
-  border-color: #168fe0;
-  box-shadow: 0 16px 32px rgba(21, 105, 180, 0.2);
-}
-
-/* Purple card border */
-.learning-purple:hover {
-  border-color: #8c3cf0;
-  box-shadow: 0 16px 32px rgba(124, 58, 237, 0.2);
-}
-
-/* Cyan card border */
-.learning-cyan:hover {
-  border-color: #08bbb6;
-  box-shadow: 0 16px 32px rgba(8, 187, 182, 0.2);
-}
-
-/* Yellow card border */
-.learning-yellow:hover {
-  border-color: #f0ad00;
-  box-shadow: 0 16px 32px rgba(240, 173, 0, 0.2);
-}
-
-/* =========================================
-   IMAGE BORDER AND DARKER HOVER
-========================================= */
-
-.learning-image-wrapper {
-  border: 1px solid rgba(150, 180, 210, 0.35);
-  box-sizing: border-box;
-  transition:
-    border-color 0.3s ease,
-    box-shadow 0.3s ease;
-}
-
-.learning-image {
-  filter: brightness(1);
-  transition:
-    transform 0.35s ease,
-    filter 0.35s ease;
-}
-
-/* Darken the image on hover */
-.learning-card:hover .learning-image {
-  transform: scale(1.04);
-  filter: brightness(0.78) contrast(1.05);
-}
-
-.learning-card:hover .learning-image-wrapper {
-  border-color: rgba(30, 105, 180, 0.6);
-  box-shadow: inset 0 0 0 1px rgba(30, 105, 180, 0.15);
-}
-
-/* =========================================
-   NUMBER BADGE HOVER
-========================================= */
-
-.learning-number {
-  border: 2px solid rgba(255, 255, 255, 0.75);
-  transition:
-    transform 0.3s ease,
-    filter 0.3s ease,
-    box-shadow 0.3s ease;
-}
-
-.learning-card:hover .learning-number {
-  transform: scale(1.08);
-  filter: brightness(0.82) saturate(1.15);
-  box-shadow: 0 8px 18px rgba(20, 50, 90, 0.24);
-}
-
-/* Darken the top-right icon slightly */
-.learning-icon {
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease,
-    background-color 0.3s ease;
-}
-
-.learning-card:hover .learning-icon {
-  transform: scale(1.06);
-  background-color: #ffffff;
-  box-shadow: 0 7px 16px rgba(30, 70, 120, 0.15);
-}
-
-/* =========================================
-   ACCESSIBILITY AND MOBILE
-========================================= */
-
+/* ==========================================================
+   23. SAFETY: TOUCH DEVICES  (.lapr-card, .lapr-cta__button)
+   No hover lift on touch screens (avoids "stuck" hover state).
+   ========================================================== */
 @media (hover: none) {
-  .learning-card:hover {
+  .lapr-card:hover,
+  .lapr-cta__button:hover {
     transform: none;
   }
 
-  .learning-card:hover .learning-image {
-    transform: none;
-    filter: brightness(1);
-  }
-
-  .learning-card:hover .learning-number {
-    transform: none;
-    filter: none;
+  .lapr-card:hover {
+    box-shadow: 0 8px 24px rgba(29, 78, 145, 0.12);
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .learning-card,
-  .learning-image,
-  .learning-number,
-  .learning-icon,
-  .learning-image-wrapper {
-    transition: none;
+
+/* ==========================================================
+   24. SAFETY: HIGH CONTRAST & PRINT  (.lapr-card, .lapr-section)
+   ========================================================== */
+@media (forced-colors: active) {
+  .lapr-card,
+  .lapr-outcomes,
+  .lapr-cta__button {
+    border: 1px solid CanvasText;
   }
 }
 
-/*
- * LEARNING APPROACH HEADING — append this patch to the END of
- * LearningApproach.css. It only overrides section-heading styles.
- * Existing card, image, connector, background, and animation rules remain.
- */
-
-.learning-heading {
-  width: 100%;
-  text-align: center;
-}
-
-.learning-eyebrow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 18px;
-  margin-bottom: 14px;
-
-  color: #1679d7;
-  font-size: 19px;
-  font-weight: 900;
-  letter-spacing: 0.16em;
-  line-height: 1;
-  text-transform: uppercase;
-}
-
-.learning-line {
-  display: block;
-  flex: 0 0 42px;
-  width: 42px;
-  height: 2px;
-  border-radius: 10px;
-  background: #a9cdec;
-}
-
-.learning-heading h2 {
-  width: 100%;
-  max-width: 1000px;
-  margin: 0 auto;
-
-  color: #09245c;
-  font-size: clamp(38px, 4vw, 57px);
-  font-weight: 900;
-  line-height: 1.04;
-  letter-spacing: -0.045em;
-  text-align: center;
-  overflow-wrap: break-word;
-}
-
-/* Keep the existing span markup while standardizing highlight color. */
-.learning-heading h2 .learn-word {
-  color: #09245c;
-  font-weight: 900;
-}
-
-.learning-heading h2 .explore-word,
-.learning-heading h2 .build-word,
-.learning-heading h2 .create-word {
-  color: #1599df;
-  font-weight: 900;
-}
-
-@media (max-width: 950px) {
-  .learning-eyebrow {
-    gap: 12px;
-    font-size: 16px;
+@media print {
+  .lapr-section {
+    height: auto;
+    background: none;
   }
 
-  .learning-heading h2 {
-    font-size: clamp(34px, 5vw, 46px);
-  }
-}
-
-@media (max-width: 600px) {
-  .learning-eyebrow {
-    gap: 9px;
-    margin-bottom: 14px;
-    font-size: 12px;
-    letter-spacing: 0.13em;
-  }
-
-  .learning-line {
-    flex-basis: 25px;
-    width: 25px;
-  }
-
-  .learning-heading h2 {
-    font-size: clamp(30px, 7.8vw, 38px);
-    line-height: 1.08;
-    letter-spacing: -0.04em;
-  }
-}
-
-@media (max-width: 400px) {
-  .learning-eyebrow {
-    gap: 7px;
-    font-size: 11px;
-    letter-spacing: 0.1em;
-  }
-
-  .learning-line {
-    flex-basis: 18px;
-    width: 18px;
-  }
-
-  .learning-heading h2 {
-    font-size: clamp(28px, 8vw, 32px);
+  .lapr-card {
+    box-shadow: none;
+    break-inside: avoid;
   }
 }

@@ -11,7 +11,7 @@ import {
 
 // import { Link } from "react-router-dom";
 
-import AboutHero from "../../components/About/AboutHero/AboutHero.jsx";
+import HeroSection from "../../components/About/HeroSection/HeroSection.jsx";
 // import SectionTitle from "../../components/SectionTitle/SectionTitle.jsx";
 import CTASection from "../../components/CTASection/CTASection.jsx";
 import WhoWeAre from "../../components/About/WhoWeAre/WhoWeAre.jsx";
@@ -73,7 +73,7 @@ export default function About() {
           ABOUT HERO
       ===================================================== */}
 
-      <AboutHero />
+      <HeroSection />
       <WhoWeAre />
 
       <VisionMissionGoal />

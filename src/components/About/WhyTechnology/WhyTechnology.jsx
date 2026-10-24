@@ -1,142 +1,178 @@
+/* ==========================================================================
+   WhyTechnology.jsx
+   Technology education section – dark glass design, fits one window.
+   ========================================================================== */
 
-import { useEffect, useRef, useState } from "react";
+import { memo, useCallback, useState } from "react";
 import {
-  ArrowRight,
   Lightbulb,
   Target,
   Brain,
   Wrench,
   Rocket,
   BarChart3,
+  ArrowRight,
 } from "lucide-react";
-import { Link } from "react-router-dom";
 
-import whyTechnologyImage from "../../../assets/About/WhyTechnology/why-technology-transparent.png";
+// ===== SECTION 1: Styles and image imports =====
 import "./WhyTechnology.css";
+import whyTechPhoto from "../../../assets/About/WhyTechnology/why-technology.png";
 
-const strengths = [
-  { title: "Creativity", icon: Lightbulb, tone: "purple" },
-  { title: "Problem Solving", icon: Target, tone: "pink" },
-  { title: "Logical Thinking", icon: Brain, tone: "blue" },
-  { title: "Practical Skills", icon: Wrench, tone: "green" },
-  { title: "Innovation", icon: Rocket, tone: "yellow" },
-  { title: "Confidence", icon: BarChart3, tone: "cyan" },
+// ===== SECTION 2: Static data =====
+const WHY_TECH_SKILLS = [
+  { id: "creativity", Icon: Lightbulb, tone: "blue", label: "Creativity" },
+  { id: "problem-solving", Icon: Target, tone: "cyan", label: "Problem Solving" },
+  { id: "logical-thinking", Icon: Brain, tone: "violet", label: "Logical Thinking" },
+  { id: "practical-skills", Icon: Wrench, tone: "blue", label: "Practical Skills" },
+  { id: "innovation", Icon: Rocket, tone: "blue", label: "Innovation" },
+  { id: "confidence", Icon: BarChart3, tone: "blue", label: "Confidence" },
 ];
 
-export default function WhyTechnology() {
-  const sectionRef = useRef(null);
-  const [isVisible, setIsVisible] = useState(false);
+const WHY_TECH_STATS = [
+  { id: "hands-on", value: "92%", label: "Hands-On", fill: 92 },
+  { id: "solutions", value: "100+", label: "Real-world Solutions", fill: 62, white: true },
+];
 
-  useEffect(() => {
-    const section = sectionRef.current;
+// ===== SECTION 3: CTA URL safety helper =====
+const whyTechSafeHref = (url) => {
+  if (typeof url !== "string") return "#";
 
-    if (!section) return undefined;
+  const value = url.trim();
 
-    const reduceMotion =
-      window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+  // eslint-disable-next-line no-control-regex
+  if (!value || /[\u0000-\u001F\u007F\\]/.test(value)) {
+    return "#";
+  }
 
-    if (reduceMotion || typeof IntersectionObserver === "undefined") {
-      setIsVisible(true);
-      return undefined;
-    }
+  if (
+    value.startsWith("#") ||
+    /^(?:\/(?!\/)|\.{1,2}\/)/.test(value) ||
+    /^(?:https?:\/\/|mailto:|tel:)/i.test(value)
+  ) {
+    return value;
+  }
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(entry.target);
-        }
-      },
-      {
-        threshold: 0.12,
-        rootMargin: "0px 0px -35px 0px",
-      }
-    );
+  return "#";
+};
 
-    observer.observe(section);
-
-    return () => observer.disconnect();
-  }, []);
+// ===== SECTION 4: Skill card =====
+const WhyTechSkillRow = memo(function WhyTechSkillRow({ Icon, tone, label }) {
+  if (!Icon) return null;
 
   return (
-    <section
-      ref={sectionRef}
-      className={`why-technology${isVisible ? " is-visible" : ""}`}
-      aria-labelledby="why-tech-heading"
-    >
-      <div
-        className="why-tech-decoration why-tech-decoration-left"
-        aria-hidden="true"
-      />
+    <li className={`why-tech__skill why-tech__tone--${tone}`}>
+      <span className="why-tech__skill-icon" aria-hidden="true">
+        <Icon size={18} strokeWidth={1.8} />
+      </span>
 
-      <div
-        className="why-tech-decoration why-tech-decoration-right"
-        aria-hidden="true"
-      />
+      <span className="why-tech__skill-label">{label}</span>
+    </li>
+  );
+});
 
-      <div className="why-tech-container">
-        {/* Heading */}
-        <header className="why-tech-heading why-reveal">
-          <div className="why-tech-eyebrow">
-            <span className="why-tech-line" aria-hidden="true" />
-            <span>WHY TECHNOLOGY?</span>
-            <span className="why-tech-line" aria-hidden="true" />
+// ===== SECTION 5: Main component =====
+function WhyTechnology({ ctaHref = "#courses", photoSrc = whyTechPhoto }) {
+  const safeCtaHref = whyTechSafeHref(ctaHref);
+  const isExternalCta = /^https?:\/\//i.test(safeCtaHref);
+
+  const [photoFailed, setPhotoFailed] = useState(false);
+  const handlePhotoError = useCallback(() => setPhotoFailed(true), []);
+
+  return (
+    <section className="why-tech" aria-labelledby="why-tech-heading">
+      <div className="why-tech__ambient" aria-hidden="true" />
+
+      <div className="why-tech__inner">
+        {/* Left content */}
+        <div className="why-tech__content">
+          <p className="why-tech__eyebrow">
+            <span className="why-tech__eyebrow-pill">
+              <span className="why-tech__eyebrow-dot" aria-hidden="true" />
+              Why technology?
+            </span>
+            <span className="why-tech__eyebrow-line" aria-hidden="true" />
+          </p>
+
+          <h2 id="why-tech-heading" className="why-tech__title">
+            Skills that go beyond
+            <span className="why-tech__title-accent">the classroom</span>
+          </h2>
+
+          <p className="why-tech__lead">
+            Technology projects encourage children to think, test, make
+            mistakes, solve problems and explain what they build.
+          </p>
+
+          <ul
+            className="why-tech__skills"
+            role="list"
+            aria-label="Skills children develop"
+          >
+            {WHY_TECH_SKILLS.map((skill) => (
+              <WhyTechSkillRow
+                key={skill.id}
+                Icon={skill.Icon}
+                tone={skill.tone}
+                label={skill.label}
+              />
+            ))}
+          </ul>
+
+          <a
+            className="why-tech__btn"
+            href={safeCtaHref}
+            rel={isExternalCta ? "noopener noreferrer" : undefined}
+          >
+            <span>Explore Courses</span>
+            <ArrowRight
+              className="why-tech__btn-arrow"
+              size={22}
+              aria-hidden="true"
+            />
+          </a>
+        </div>
+
+        {/* Right column: photo, then stats right below it */}
+        <div className="why-tech__aside">
+          <div className="why-tech__visual" aria-hidden="true">
+            {!photoFailed && (
+              <img
+                className="why-tech__photo"
+                src={photoSrc}
+                alt=""
+                loading="lazy"
+                decoding="async"
+                onError={handlePhotoError}
+              />
+            )}
           </div>
 
-          <h2 id="why-tech-heading">
-            Skills that go beyond
-            <br className="why-tech-desktop-break" /> the classroom
-          </h2>
-        </header>
-
-        {/* Description */}
-        <p className="why-tech-description why-reveal">
-          Technology projects encourage children to think, test, make
-          mistakes, solve problems and explain what they build.
-        </p>
-
-        {/* Image: right on desktop, above cards on tablet/mobile */}
-        <div className="why-tech-visual why-reveal">
-          <img
-            src={whyTechnologyImage}
-            alt="Children learning technology through robotics, coding and electronics"
-            className="why-tech-image"
-            loading="lazy"
-            decoding="async"
-          />
-        </div>
-
-        {/* Skill cards */}
-        <div className="why-tech-skills">
-          {strengths.map((item, index) => {
-            const Icon = item.icon;
-
-            return (
-              <article
-                key={item.title}
-                className={`why-tech-skill why-tech-${item.tone} why-reveal`}
-                style={{
-                  transitionDelay: isVisible ? `${index * 70}ms` : "0ms",
-                }}
-              >
-                <span className="why-tech-skill-icon" aria-hidden="true">
-                  <Icon size={22} strokeWidth={2.3} />
+          <ul className="why-tech__stats" role="list" aria-label="Highlights">
+            {WHY_TECH_STATS.map((stat) => (
+              <li key={stat.id} className="why-tech__stat">
+                <span className="why-tech__stat-text">
+                  <span
+                    className={`why-tech__stat-value${
+                      stat.white ? " why-tech__stat-value--white" : ""
+                    }`}
+                  >
+                    {stat.value}
+                  </span>{" "}
+                  {stat.label}
                 </span>
-
-                <span className="why-tech-skill-title">
-                  {item.title}
-                </span>
-              </article>
-            );
-          })}
+                <span
+                  className="why-tech__stat-bar"
+                  style={{ "--why-tech-fill": `${stat.fill}%` }}
+                  aria-hidden="true"
+                />
+              </li>
+            ))}
+          </ul>
         </div>
-
-        {/* CTA */}
-        <Link to="/courses" className="why-tech-button why-reveal">
-          <span>Explore Courses</span>
-          <ArrowRight size={19} strokeWidth={2.6} aria-hidden="true" />
-        </Link>
       </div>
     </section>
   );
 }
+
+// ===== SECTION 6: Export =====
+export default memo(WhyTechnology);

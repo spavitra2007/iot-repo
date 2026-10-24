@@ -1,28 +1,31 @@
-import HomeHero from "../../components/Home/HomeHero/HomeHero.jsx";
-import LearningSection from "../../components/Home/LearningSection/LearningSection.jsx";
-// import CoursesSection from "../../components/Home/CoursesSection/CoursesSection.jsx";
-import ProjectLab from "../../components/Home/ProjectLab/ProjectLab.jsx";
-import ParentSection from "../../components/Home/ParentSection/ParentSection.jsx";
-import CTASection from "../../components/CTASection/CTASection.jsx";
+import React from "react";
+
+import HeroSection from "../../components/About/HeroSection/HeroSection.jsx";
+import WhoWeAre from "../../components/About/WhoWeAre/WhoWeAre.jsx";
+import WhyTechnology from "../../components/About/WhyTechnology/WhyTechnology.jsx";
+import LearningApproach from "../../components/About/LearningApproach/LearningApproach.jsx";
+import Skill from "../../components/About/Skill/Skill.jsx";
+import Teaching from "../../components/About/Teaching/Teaching.jsx";
+import VisionMissionGoal from "../../components/About/VisionMissionGoal/VisionMissionGoal.jsx";
 
 import "./Home.css";
-import PopularLearning from "../../components/Home/PopularLearning/PopularLearning.jsx";
 
 export default function Home() {
   return (
     <main className="home-page">
-      <HomeHero />
+      <HeroSection />
 
-      <LearningSection />
+      <WhoWeAre />
 
-      {/* <CoursesSection /> */}
-      <PopularLearning />
+      <WhyTechnology />
 
-      <ProjectLab />
+      <LearningApproach />
 
-      <ParentSection />
+      <Skill />
 
-      <CTASection />
+      <Teaching />
+
+      <VisionMissionGoal />
     </main>
   );
 }
